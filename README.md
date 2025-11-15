@@ -71,8 +71,7 @@ None for now — coming soon 👀
 |--------|:-----:|
 | Run All + progress | ✔ |
 | Timestamp column | ✔ |
-| Auto-discovery of config paths | 🔄 Planned |
-| UI filters + search | 🔄 Planned |
+| Auto-discovery of config paths | ✔|
 | Logs viewer | 🔄 Planned |
 
 ---
