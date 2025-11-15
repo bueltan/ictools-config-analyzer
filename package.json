@@ -13,14 +13,18 @@
     "onCommand:ictools-config-analyzer.openWebUI"
   ],
   "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "ictools-config-analyzer.openWebUI",
-        "title": "ICTools: Open Config Analyzer UI"
+    "contributes": {
+      "commands": [
+        {
+          "command": "ictools-config-analyzer.openWebUI",
+          "title": "ICTools: Open Config Analyzer UI"
+        }
+      ],
+      "releaseNotes": {
+        "0.0.1": "Initial release: Source Code and Pip Config validation"
       }
-    ]
-  },
+    }
+,
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",

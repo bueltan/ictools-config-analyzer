@@ -1,71 +1,92 @@
-# ictools-config-analyzer README
+## 🛡️ Release Notes
 
-This is the README for your extension "ictools-config-analyzer". After writing up a brief description, we recommend including the following sections.
+### 0.0.1
+Initial version:
+- Source Code validation
+- Pip Config validation
+- Basic Web UI
 
-## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+# ICTools Config Analyzer
 
-For example if there is an image subfolder under your extension project workspace:
+Validate ICTools PIM configurations including:
+- Source Code repositories
+- Pip configuration files (`pip-config.yml`)
+- Branch / tag existence and access permissions
+![Screenshot](assets/1_screenshot.png)
 
-\!\[feature X\]\(images/feature-x.png\)
+This extension helps avoid time-consuming failures during environment setup by ensuring all configuration references are valid before installation.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
 
 ---
 
-## Following extension guidelines
+## ✨ Features
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+- Check Git repository accessibility via SSH
+- Validate branch, tag or ref existence
+- Human-friendly validation status (emoji indicators)
+- Manual validation per repository
+- 🔄 **Run All** validations in batch (all or only failed)
+- Timestamp display (ISO + humanized tooltip)
+- Responsive webview UI built into VSCode
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+---
 
-## Working with Markdown
+## 📸 UI Example
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+> *Validating repositories and pip configurations in progress*
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+![ICTools Analyzer UI](assets/1_screenshot.png)
 
-## For more information
+---
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+## 🚀 Quick Usage
 
-**Enjoy!**
+1️⃣ Open VSCode  
+2️⃣ Press `Ctrl + Shift + P`  
+3️⃣ Search: **`ICTools: Open Config Analyzer UI`**  
+4️⃣ Run validations individually or using **Run All**
+
+---
+
+## ⚙️ Requirements
+
+- `git` must be installed and authenticated (SSH recommended)
+- Access to ICTools Git server for internal repositories
+
+---
+
+## 🔧 Extension Settings
+
+None for now — coming soon 👀  
+(Planned: allow selecting configuration root path)
+
+---
+
+## 🏗️ Planned roadmap
+
+| Feature | Status |
+|--------|:-----:|
+| Run All + progress | ✔ |
+| Timestamp column | ✔ |
+| Auto-discovery of config paths | 🔄 Planned |
+| UI filters + search | 🔄 Planned |
+| Logs viewer | 🔄 Planned |
+
+---
+
+## 🧩 Commands
+
+| Command | Title |
+|---------|-------|
+| `ictools-config-analyzer.openWebUI` | ICTools: Open Config Analyzer UI |
+
+---
+
+## 🛠️ Development
+
+Clone repo, install deps and compile:
+
+```bash
+npm install
+npm run compile
