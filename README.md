@@ -13,7 +13,6 @@ Validate ICTools PIM configurations including:
 - Source Code repositories
 - Pip configuration files (`pip-config.yml`)
 - Branch / tag existence and access permissions
-![Screenshot](assets/1_screenshot.png)
 
 This extension helps avoid time-consuming failures during environment setup by ensuring all configuration references are valid before installation.
 
@@ -90,3 +89,4 @@ Clone repo, install deps and compile:
 ```bash
 npm install
 npm run compile
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
