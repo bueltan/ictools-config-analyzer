@@ -1,3 +1,6 @@
+![ICTools Analyzer UI](assets/icon.png)
+
+
 ## 🛡️ Release Notes
 
 ### 0.0.1
@@ -89,4 +92,6 @@ Clone repo, install deps and compile:
 ```bash
 npm install
 npm run compile
+```
+
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
