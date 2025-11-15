@@ -77,7 +77,11 @@ function renderSourceRepos() {
         tr.appendChild(tdRef);
 
         const tdStatus = document.createElement('td');
-        tdStatus.textContent = decorateStatus(repo.status || 'Not validated');
+        if (repo.isRunning) {
+            tdStatus.textContent = '⏳ Validating...';
+        } else {
+            tdStatus.textContent = decorateStatus(repo.status || 'Not validated');
+        }
         tr.appendChild(tdStatus);
 
         const tdLast = document.createElement('td');
@@ -89,11 +93,17 @@ function renderSourceRepos() {
         }
         tr.appendChild(tdLast);
 
-        // 👇 NUEVA COLUMNA: Action (Run)
         const tdAction = document.createElement('td');
         const btn = document.createElement('button');
         btn.textContent = 'Run';
         btn.addEventListener('click', () => {
+            // mark only this repo as running
+            sourceRepos = sourceRepos.map(r => r.name === repo.name
+                ? { ...r, isRunning: true, status: 'Validating...' }
+                : r
+            );
+            renderSourceRepos();
+
             vscode.postMessage({
                 type: 'runSingleRepo',
                 payload: { name: repo.name }
@@ -107,6 +117,7 @@ function renderSourceRepos() {
 
     runAllReposBtn.disabled = sourceRepos.length === 0;
 }
+
 
 // ---------- PIP Config table ----------
 
@@ -132,12 +143,16 @@ function renderPipConfigs() {
         tdPath.textContent = cfg.pipConfigPath || '';
         tr.appendChild(tdPath);
 
-        const tdPkgs = document.createElement('td');
-        tdPkgs.textContent = String(cfg.packages ? cfg.packages.length : 0);
-        tr.appendChild(tdPkgs);
+        const tdPackages = document.createElement('td');
+        tdPackages.textContent = String((cfg.packages || []).length);
+        tr.appendChild(tdPackages);
 
         const tdStatus = document.createElement('td');
-        tdStatus.textContent = decorateOverallStatus(cfg.overallStatus || 'Not validated');
+        if (cfg.isRunning) {
+            tdStatus.textContent = '⏳ Validating...';
+        } else {
+            tdStatus.textContent = decorateOverallStatus(cfg.overallStatus || 'Not validated');
+        }
         tr.appendChild(tdStatus);
 
         const tdLast = document.createElement('td');
@@ -164,7 +179,15 @@ function renderPipConfigs() {
     runAllPipConfigsBtn.disabled = pipConfigs.length === 0;
 }
 
+
 function onRunPipConfig(cfg) {
+    // mark selected config as running
+    pipConfigs = pipConfigs.map(c => c.pipConfigPath === cfg.pipConfigPath
+        ? { ...c, isRunning: true, overallStatus: 'Not validated' }
+        : c
+    );
+    renderPipConfigs();
+
     selectedPipConfig = cfg;
     currentPackages = (cfg.packages || []).map(p => ({
         ...p,
@@ -224,19 +247,38 @@ pickFolderBtn.addEventListener('click', () => {
     vscode.postMessage({ type: 'pickFolder' });
 });
 
-runAllReposBtn.addEventListener('click', () => {
-    if (sourceRepos.length === 0) {
-        return;
-    }
-    vscode.postMessage({ type: 'runAllSourceRepos' });
-});
+    runAllReposBtn.addEventListener('click', () => {
+        if (sourceRepos.length === 0) {
+            return;
+        }
+
+        // mark all repos as running
+        sourceRepos = sourceRepos.map(r => ({
+            ...r,
+            isRunning: true,
+            status: 'Validating...'
+        }));
+        renderSourceRepos();
+
+        vscode.postMessage({ type: 'runAllSourceRepos' });
+    });
 
 runAllPipConfigsBtn.addEventListener('click', () => {
     if (pipConfigs.length === 0) {
         return;
     }
+
+    // mark all PIP configs as running
+    pipConfigs = pipConfigs.map(cfg => ({
+        ...cfg,
+        isRunning: true,
+        overallStatus: 'Not validated'
+    }));
+    renderPipConfigs();
+
     vscode.postMessage({ type: 'runAllPipConfigs' });
 });
+
 
 // Messages from extension
 window.addEventListener('message', event => {
@@ -268,7 +310,9 @@ window.addEventListener('message', event => {
                 ...r,
                 status: 'Not validated',
                 severity: 'info',
-                lastTimestamp: null
+                lastTimestamp: null,
+                isRunning: false
+
             }));
             renderSourceRepos();
             break;
@@ -285,19 +329,22 @@ window.addEventListener('message', event => {
                     ...sourceRepos[idx],
                     status: payload.status,
                     severity: payload.severity,
-                    lastTimestamp: payload.timestamp || Date.now()
+                    lastTimestamp: payload.timestamp || Date.now(),
+                    isRunning: false
                 };
             }
             renderSourceRepos();
             break;
         }
 
+
         case 'pipConfigs': {
             const cfgs = Array.isArray(msg.payload) ? msg.payload : [];
             pipConfigs = cfgs.map(cfg => ({
                 ...cfg,
                 overallStatus: 'Not validated',
-                lastTimestamp: null
+                lastTimestamp: null,
+                isRunning: false
             }));
             renderPipConfigs();
             break;
@@ -321,7 +368,6 @@ window.addEventListener('message', event => {
             renderPackagesTable();
             break;
         }
-
         case 'pipConfigSummary': {
             const payload = msg.payload;
             if (!payload || !payload.pipConfigPath) {
@@ -334,12 +380,15 @@ window.addEventListener('message', event => {
                 pipConfigs[idx] = {
                     ...pipConfigs[idx],
                     overallStatus: payload.anyIssues ? 'Issues found' : 'All OK',
-                    lastTimestamp: payload.timestamp
+                    lastTimestamp: payload.timestamp,
+                    isRunning: false
                 };
             }
             renderPipConfigs();
             break;
         }
+
+
     }
 });
 

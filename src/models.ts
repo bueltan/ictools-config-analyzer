@@ -20,7 +20,9 @@ export interface PiPConfigInfo {
     valid?: boolean | null;
     analyze: boolean;
     packages: PackageInfo[];
+    isRunning?: boolean;  
 }
+
 
 export interface Package {
     name: string;
@@ -39,6 +41,7 @@ export interface Repository {
     valid?: boolean | null;
     error_message?: string;
     timestamp?: number | null;
+    isRunning?: boolean;    
 }
 
 export interface PiPConfig {
