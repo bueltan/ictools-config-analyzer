@@ -1,5 +1,24 @@
 ![ICTools Analyzer UI](assets/icon.png)
 
+## 📦 Install the Extension Locally (VSIX File)
+
+### ** Using VS Code UI**
+
+1. Open **VS Code**
+2. Go to the **Extensions** panel
+3. Click the action menu (`⋯`) in the top-right corner
+4. Select **“Install from VSIX…”**
+5. Choose the file:
+
+```
+ictools-config-analyzer-0.0.1.vsix
+```
+
+📌 Screenshot example *(replace the image below with your own)*:
+
+> ![Install from VSIX](assets/how_install.png)
+
+
 
 ## 🛡️ Release Notes
 
@@ -61,7 +80,6 @@ This extension helps avoid time-consuming failures during environment setup by e
 ## 🔧 Extension Settings
 
 None for now — coming soon 👀  
-(Planned: allow selecting configuration root path)
 
 ---
 
