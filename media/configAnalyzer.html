@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta
+        http-equiv="Content-Security-Policy"
+        content="default-src 'none'; style-src ${cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ICTools Config Analyzer</title>
+    <link rel="stylesheet" href="${styleUri}">
+</head>
+<body>
+    <h2>ICTools Config Analyzer</h2>
+
+    <div class="toolbar">
+        <button id="pick-folder">Select configuration folder</button>
+        <span id="folder-path">No folder selected.</span>
+    </div>
+
+    <div id="status"></div>
+
+    <!-- Source Code section -->
+    <section class="section">
+        <div class="section-header">
+            <h3>Source Code Repositories</h3>
+            <button id="run-all-repos" disabled>Run all</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Git URL</th>
+                        <th>Ref</th>
+                        <th>Status</th>
+                        <th>Last check</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="source-repos-body"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- PIP Configs section -->
+    <section class="section">
+        <div class="section-header">
+            <h3>PIP Configurations</h3>
+            <button id="run-all-pip-configs" disabled>Run all</button>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>DCC</th>
+                        <th>Version</th>
+                        <th>Path</th>
+                        <th>Packages</th>
+                        <th>Status</th>
+                        <th>Last check</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="pip-configs-body"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Packages of selected PIP config -->
+    <section class="section" id="packages-section" style="display:none;">
+        <h3 id="packages-title">Packages</h3>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Index URL</th>
+                        <th>Version</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="packages-body"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <script nonce="${nonce}" src="${scriptUri}"></script>
+</body>
+</html>
+
+
+
+
+
+
+
