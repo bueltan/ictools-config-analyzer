@@ -1,4 +1,4 @@
-# 📊 ICTools Config Analyzer — Project Analysis
+# 📊 ICTools Config Analyzer
 
 ## Overview
 
