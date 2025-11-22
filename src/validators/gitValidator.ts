@@ -1,5 +1,5 @@
 // gitValidator.ts
-import { CmdRunner } from './cmdRunner';
+import { CmdRunner } from '../cmdRunner';
 
 export interface RepoRefStatus {
     ok: boolean;

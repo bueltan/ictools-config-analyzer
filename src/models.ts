@@ -62,3 +62,17 @@ export interface SourceCodeConfig {
     timestamp?: number | null;
     repositories: Repository[];
 }
+
+export interface Repo {
+    name: string;
+    git_url: string;
+    git_ref: string;
+}
+
+export interface RepoStatusMessage {
+    name: string;
+    git_url: string;
+    git_ref: string;
+    status: string;
+    severity: 'access_error' | 'missing' | 'info';
+}
